@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Vertical Align Plugin Demo</title>
+    <link href="../common-files/common.css" type="text/css" rel="stylesheet" />
+    <style>
+        .div1 {
+            height: 300px;
+            border: 0;
+        }
+
+        .div2 {
+            height: 300px;
+            border: 0;
+        }
+
+        .div3,
+        .div4,
+        .div5 {
+            height: 300px;
+            padding: 30px;
+            border-bottom: 30px solid #f1f3f5;
+            margin-bottom: 60px;
+            outline: 1px solid #222;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Simple Usage of Equal Height Plugin</h2>
+        <hr/>
+    </div>
+    <div class="container p-t">
+        <div class="inner-container div1">
+            <p class="target">This section is vertically aligned middle</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>This plugin has following options</h2>
+        <hr/>
+    </div>
+    <div class="container p-t">
+        <div class="inner-container div2">
+            <p class="target2">This section is vertically aligned bottom</p>
+        </div>
+    </div>
+    <div class="container p-t">
+        <div class="inner-container div3 one-third">
+            <p class="target3">This section is vertically aligned middle.
+                <br/> Its height is set to Height </p>
+        </div>
+        <div class="inner-container div4 one-third">
+            <p class="target4">This section is vertically aligned middle.
+                <br/> Its height is set to Inner Height </p>
+        </div>
+        <div class="inner-container div5 one-third">
+            <p class="target5">This section is vertically aligned middle.
+                <br/> Its height is set to Outer Height </p>
+        </div>
+    </div>
+    <div class="container p-x">
+        <h2>You can even specify the parent div</h2>
+        <hr/>
+        <p class="black">For Align to Middle Demo <a href="demoParentMiddle.html">Click Here</a></p>
+        <p class="black">For Align to Bottom Demo <a href="demoParentBottom.html">Click Here</a></p>
+    </div>
+    <script src="../common-files/jquery.min.js"></script>
+    <script src="verticalAlign.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            // Simple Usage
+            $(".target").verticalAlign();
+
+            // Align to bottom Option
+            $(".target2").verticalAlign({
+                "align": "bottom"
+            });
+
+            // Align to Middle & Height set to Inner Height Option
+            $(".target3").verticalAlign({
+                "parentHType": "height",
+                "tragetHType": "height"
+            });
+
+            // Align to Middle & Height set to Height Option
+            $(".target4").verticalAlign({
+                "parentHType": "innerHeight",
+                "tragetHType": "innerHeight"
+            });
+
+            // Align to Middle & Height set to outerHeight Option
+            $(".target5").verticalAlign({
+                "parentHType": "outerHeight",
+                "tragetHType": "outerHeight"
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

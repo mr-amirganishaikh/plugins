@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Custom Check Plugin</title>
+    <link href="customInput.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+    <input type="checkbox" id="testCheckbox" class="checkbox" name="testCheckbox" value="Test" />
+    <input type="checkbox" id="testCheckbox2" class="checkbox" name="testCheckbox" value="Test2" disabled />
+    <input type="checkbox" id="testCheckbox3" class="checkbox" name="testCheckbox" value="Test3" checked />
+    <input type="checkbox" id="testCheckbox3" class="checkbox" name="testCheckbox" value="Test3" checked disabled />
+
+    <script src="../common-files/jquery.min.js"></script>
+    <script src="customCheck.js"></script>
+    <script>
+        // To check the status of Input
+        var checkStatus = function(target){
+            target.prop("checked", true);
+            target.attr("checked","checked").parent('.customInput').attr('aria-checked','true').addClass('checked');
+            return true;
+        }
+        
+        // To uncheck the status of Input
+        var uncheckStatus = function(target){
+            target.prop("checked", false);
+            target.removeAttr("checked").parent('.customInput').attr('aria-checked','false').removeClass('checked');
+            return true;
+        }
+        
+        // To toggle the status of Input
+        var toggleStatus = function(target, status) {
+            console.log(target, status, target.attr("value"));
+            if (status !== undefined && status === true) {
+                uncheckStatus(target);
+            } else if (status !== undefined && status === false) {
+                checkStatus(target);
+            }
+            return false;
+        }
+        
+        var customInput = function(target) {
+            var inputParent = '<div class="customInput" aria-checked="false" aria-disabled="false"></div>';
+            $(target).wrap(inputParent);
+            $(target).css({
+                'position': 'absolute',
+                'top': '-20%',
+                'left': '-20%',
+                'display': 'block',
+                'width': '100%',
+                'height': '100%',
+                'margin': '0',
+                'padding': '0',
+                'opacity': '0',
+                'border': '0',
+                'z-index': '-1'
+            });
+
+            $('.customInput').on("click", function() {
+                var $target = $(this).children("input");
+                var currentStatus = $target.prop("checked");
+                toggleStatus($target, currentStatus);
+            });
+            
+        }
+
+
+        $(document).ready(function() {
+            $(".checkbox").customCheck();
+        });
+
+    </script>
+</body>
+
+</html>

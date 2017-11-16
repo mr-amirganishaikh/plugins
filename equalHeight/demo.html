@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Equal Height Plugin Demo</title>
+    <link href="../common-files/common.css" type="text/css" rel="stylesheet" />
+    <style>
+        #firstDiv,
+        #thirdDiv,
+        #fifthDiv {
+            height: 300px;
+            padding: 30px;
+            border-bottom: 30px solid #f8f8ff;
+            margin-bottom: 60px;
+            outline: 1px solid #222;
+        }
+
+        #secondDiv,
+        #fourthDiv,
+        #sixthDiv {
+            outline: 1px solid #222;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Simple Usage of Equal Height Plugin</h2>
+        <hr/>
+    </div>
+    <div class="container p-t">
+        <div id="firstDiv" class="inner-container half">
+            <p>This div has Height = 300px </p>
+            <p>Height takes the exact height of the content which excludes Padding, Border &amp; Margin</p>
+        </div>
+        <div id="secondDiv" class="inner-container half">
+            <p>There is no height applied to this div. </p>
+            <p>Plugin is setting its height equal to the leftdiv's height </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Different types of Height can be taken using plugins options</h2>
+        <hr/>
+    </div>
+    <div class="container p-t">
+        <div id="thirdDiv" class="inner-container half">
+            <p>This div has Height = 300px </p>
+            <p>InnerHeight takes the height of the content + padding excluding the Border and Margin</p>
+        </div>
+        <div id="fourthDiv" class="inner-container half">
+            <p>There is no height applied to this div. </p>
+            <p>Plugin is setting its height equal to the leftdiv's innerHeight</p>
+        </div>
+    </div>
+    <div class="container p-t">
+        <div id="fifthDiv" class="inner-container half">
+            <p>This div has Height = 300px </p>
+            <p>OuterHeight takes the height of the content + padding + border and Excludes the Margin</p>
+        </div>
+        <div id="sixthDiv" class="inner-container half">
+            <p>There is no height applied to this div. </p>
+            <p>Plugin is setting its height equal to the leftdiv's outerHeight</p>
+        </div>
+    </div>
+    <script src="../common-files/jquery.min.js"></script>
+    <script src="equalHeight.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            // Simple Usage
+            $("#secondDiv").equalHeight({
+                source: "#firstDiv"
+            });
+
+            // set outerheight Usage
+            $("#fourthDiv").equalHeight({
+                source: "#thirdDiv",
+                condition: "innerHeight"
+            });
+
+            // set innerheight Usage
+            $("#sixthDiv").equalHeight({
+                source: "#fifthDiv",
+                condition: "outerHeight"
+            });
+        });
+
+    </script>
+</body>
+
+</html>

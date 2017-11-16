@@ -1,0 +1,22 @@
+.customCheck {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #e1e1e1;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    top: 1px;
+}
+
+.customCheck.checked {
+    cursor: pointer;
+    border: 1px solid #000000 !important;
+}
+
+.customCheck.disabled {
+    cursor: not-allowed !important;
+}
