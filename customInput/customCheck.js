@@ -4,7 +4,35 @@
     $.fn.customCheck = function (options) {
         // Set some default local options
         var localOptions = {
-            theme: 'customCheck'
+            handle: '',
+            
+            checkboxTheme: 'customCheck',
+            radioTheme: 'customRadio',
+            
+            checkedClass: 'checked',
+            checkedCheckboxClass: '',
+            checkedRadioClass: '',
+            
+            uncheckedClass: '',
+            uncheckedCheckboxClass: '',
+            uncheckedRadioClass: '',
+            
+            disabledClass: 'disabled',
+            disabledCheckboxClass: '',
+            disabledRadioClass: '',
+            
+            enabledClass: '',
+            enabledCheckboxClass: '',
+            enabledRadioClass: '',
+            
+            hoverClass: 'hover',
+            focusClass: 'focus',
+            activeClass: 'active',
+            
+            labelHover: 'true',
+            labelHoverClass: 'hover',
+            
+            
         };
 
         // merge default and user options
@@ -12,27 +40,39 @@
 
         // traverse all nodes
         this.each(function () {
-            var checkStatusTheme = function (checkStatus, disabledStatus) {
-                if (checkStatus === true && disabledStatus === false) {
+            // To check default status of input
+            var checkStatusTheme = function (checkedStatus, disabledStatus) {
+                if (checkedStatus === true && disabledStatus === false) {
                     return ' checked';
-                } else if (checkStatus === false && disabledStatus === true) {
+                } else if (checkedStatus === false && disabledStatus === true) {
                     return ' disabled';
-                } else if (checkStatus === true && disabledStatus === true) {
+                } else if (checkedStatus === true && disabledStatus === true) {
                     return ' checked disabled';
                 }
                 return '';
             }
-            // express a single node as a jQuery object
+            
+            // To check default status of input
+            var checkInputTheme = function (targetType) {
+                console.log(targetType);
+                if(targetType !== undefined && targetType === 'checkbox'){
+                    return options.checkboxTheme;
+                }else if(targetType !== undefined && targetType === 'radio'){
+                    return options.radioTheme;
+                }
+                
+            }
+
+            // Variables declaration
             var $this = $(this),
-                checkStatus = $this.prop('checked'),
+                checkedStatus = $this.prop('checked'),
                 disabledStatus = $this.prop('disabled'),
-                theme = options.theme,
-                statusTheme = checkStatusTheme(checkStatus, disabledStatus);
+                theme = checkInputTheme($this.attr('type')),
+                $theme = '.' + theme,
+                statusTheme = checkStatusTheme(checkedStatus, disabledStatus),
+                parentBody = '<div class="' + theme + statusTheme + '" aria-checked="' + checkedStatus + '" aria-disabled="' + disabledStatus + '"></div>';
 
-            console.log(options, $this, theme, checkStatus, disabledStatus);
-
-            var parentBody = '<div class="' + theme + statusTheme + '" aria-checked="' + checkStatus + '" aria-disabled="' + disabledStatus + '"></div>';
-
+            $($theme).off();
             $this.wrap(parentBody);
 
             $this.css({
@@ -47,6 +87,42 @@
                 'opacity': '0',
                 'border': '0',
                 'z-index': '-1'
+            });
+
+            // To check the status of Input
+            var checkStatus = function (target) {
+                target.prop("checked", true);
+                target.parent($theme).attr('aria-checked', 'true').addClass('checked');
+                return true;
+            }
+
+            // To uncheck the status of Input
+            var uncheckStatus = function (target) {
+                target.prop("checked", false);
+                target.parent($theme).attr('aria-checked', 'false').removeClass('checked');
+                return true;
+            }
+
+            // To toggle the status of Input
+            var toggleStatus = function (target, checkedStatus, disabledStatus) {
+                
+                if (disabledStatus !== undefined && disabledStatus === false) {
+                    if (checkedStatus !== undefined && checkedStatus === true) {
+                        uncheckStatus(target);
+                    } else if (checkedStatus !== undefined && checkedStatus === false) {
+                        checkStatus(target);
+                    }
+                    return false;
+                }
+                return false;
+            }
+
+            $($theme).on("click", function () {
+                toggleStatus($(this).children('input'), $(this).children('input').prop('checked'), $(this).children('input').prop('disabled'));
+            });
+            
+            $($theme).on('hover', function (){
+                $(this).addClass(options.hoverClass);
             });
 
             // to keep chaining

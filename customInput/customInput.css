@@ -1,3 +1,4 @@
+/*Checkbox themes*/
 .customCheck {
     width: 20px;
     height: 20px;
@@ -18,5 +19,31 @@
 }
 
 .customCheck.disabled {
+    cursor: not-allowed !important;
+}
+
+
+/*Radio button themes*/
+.customRadio {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #e1e1e1;
+    border-radius: 100%;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    top: 1px;
+}
+
+.customRadio.checked {
+    cursor: pointer;
+    border: 1px solid #000000 !important;
+}
+
+.customRadio.disabled {
     cursor: not-allowed !important;
 }
