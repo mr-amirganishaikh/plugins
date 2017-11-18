@@ -5,17 +5,22 @@
     display: inline-block;
     margin: 0;
     padding: 0;
-    border: 1px solid #e1e1e1;
-    background-color: #f1f1f1;
+    border: 2px solid #cccccc;
+    background-color: #ffffff;
     cursor: pointer;
     position: relative;
     left: 0;
     top: 1px;
+    transition: all 0.35s ease;
+}
+
+.customCheck.hover{
+    border: 2px solid cyan !important;
 }
 
 .customCheck.checked {
     cursor: pointer;
-    border: 1px solid #000000 !important;
+    border: 2px solid darkcyan !important;
 }
 
 .customCheck.disabled {
@@ -30,20 +35,36 @@
     display: inline-block;
     margin: 0;
     padding: 0;
-    border: 1px solid #e1e1e1;
     border-radius: 100%;
-    background-color: #f1f1f1;
+    border: 2px solid #cccccc;
+    background-color: #ffffff;
     cursor: pointer;
     position: relative;
     left: 0;
     top: 1px;
+    transition: all 0.35s ease;
+}
+
+.customRadio.hover{
+    border: 2px solid cyan !important;
 }
 
 .customRadio.checked {
     cursor: pointer;
-    border: 1px solid #000000 !important;
+    border: 2px solid darkcyan !important;
 }
 
 .customRadio.disabled {
     cursor: not-allowed !important;
+}
+
+
+
+label{
+    transition: all 0.35s ease;
+    color: #fff;
+}
+label.hover{
+    cursor: pointer;
+    color: cyan;
 }

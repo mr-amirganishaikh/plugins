@@ -3,25 +3,67 @@
 
 <head>
     <title>Custom Check Plugin</title>
+    <link href="../common-files/common.css" type="text/css" rel="stylesheet" />
     <link href="customInput.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
-    <input type="checkbox" id="testCheckbox" class="customCheckInput" name="testCheckbox" value="Test" />
-    <input type="checkbox" id="testCheckbox2" class="customCheckInput" name="testCheckbox2" value="Test2" disabled />
-    <input type="checkbox" id="testCheckbox3" class="customCheckInput" name="testCheckbox3" value="Test3" checked />
-    <input type="checkbox" id="testCheckbox4" class="customCheckInput" name="testCheckbox4" value="Test3" checked disabled />
+    <div class="container">
+        <h2>Simple Usage of Plugin</h2>
+        <hr/>
+    </div>
 
-    <input type="radio" id="testRadio" class="customCheckInput" name="testRadio" value="Test" />
-    <input type="radio" id="testRadio2" class="customCheckInput" name="testRadio" value="Test2" disabled />
-    <input type="radio" id="testRadio3" class="customCheckInput" name="testRadio" value="Test3" checked />
-    <input type="radio" id="testRadio4" class="customCheckInput" name="testRadio" value="Test3" checked disabled />
-    
+    <div class="container">
+        <div id="firstDiv" class="inner-container half">
+            <ul class="list-unstyled">
+                <li>
+                    <input type="checkbox" id="testCheckbox" class="customCheckInput" name="testCheckbox" />
+                    <label for="testCheckbox">Checkbox</label>
+                </li>
+                <li>                    
+                    <input type="checkbox" id="testCheckbox2" class="customCheckInput" name="testCheckbox2" />
+                    <label for="testCheckbox2">Checkbox 2</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="testCheckbox3" class="customCheckInput" name="testCheckbox3" />
+                    <label for="testCheckbox3">Checkbox 3</label>
+                </li>
+            </ul>
+        </div>
+        
+        <div id="secondDiv" class="inner-container half">
+            <ul class="list-unstyled">
+                <li>
+                    <input type="radio" id="testRadio" class="customCheckInput" name="testRadio" />
+                    <label for="testRadio">Radio</label>
+                </li>
+                <li>
+                    <input type="radio" id="testRadio2" class="customCheckInput" name="testRadio2" />
+                    <label for="testRadio2">Radio 2</label>
+                </li>
+                <li>
+                    <input type="radio" id="testRadio3" class="customCheckInput" name="testRadio3" />
+                    <label for="testRadio3">Radio 3</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <script src="../common-files/jquery.min.js"></script>
     <script src="customCheck.js"></script>
     <script>
         $(document).ready(function() {
-            $(".customCheckInput").customCheck();
+
+            $("#testCheckbox, #testRadio").customCheck();
+
+            $("#testCheckbox2, #testRadio2").customCheck({
+                hover: true
+            });
+
+            $("#testCheckbox3, #testRadio3").customCheck({
+                labelHover: true
+            });
+
         });
 
     </script>
