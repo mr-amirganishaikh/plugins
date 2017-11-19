@@ -1,26 +1,53 @@
 /*Checkbox themes*/
+
 .customCheck {
-    width: 20px;
-    height: 20px;
+    position: relative;
     display: inline-block;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
     margin: 0;
     padding: 0;
-    border: 2px solid #cccccc;
-    background-color: #ffffff;
-    cursor: pointer;
-    position: relative;
+    border: 0;
+}
+
+.customCheck input {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
     left: 0;
-    top: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+}
+
+.customCheck .customCheck_helper {
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    background: #000;
+    border: 6px solid white;
+    box-shadow: 0 0 0 3px #000;
+    margin: 3px;
     transition: all 0.35s ease;
 }
 
-.customCheck.hover{
-    border: 2px solid cyan !important;
+.customCheck [type="radio"] + .customCheck_helper{
+    border-radius: 100%;
 }
 
-.customCheck.checked {
-    cursor: pointer;
-    border: 2px solid darkcyan !important;
+.customCheck.hover .customCheck_helper {
+    background-color: darkcyan;
+    box-shadow: 0 0 0 3px darkcyan;
+}
+
+.customCheck.checked .customCheck_helper {
+    background-color: cyan;
+    box-shadow: 0 0 0 3px cyan;
 }
 
 .customCheck.disabled {
@@ -28,43 +55,13 @@
 }
 
 
-/*Radio button themes*/
-.customRadio {
-    width: 20px;
-    height: 20px;
+.customCheck + label {
     display: inline-block;
-    margin: 0;
-    padding: 0;
-    border-radius: 100%;
-    border: 2px solid #cccccc;
-    background-color: #ffffff;
-    cursor: pointer;
-    position: relative;
-    left: 0;
-    top: 1px;
+    transform: translateY(-3px);
     transition: all 0.35s ease;
 }
 
-.customRadio.hover{
-    border: 2px solid cyan !important;
-}
-
-.customRadio.checked {
+.customCheck + label.hover:hover {
     cursor: pointer;
-    border: 2px solid darkcyan !important;
-}
-
-.customRadio.disabled {
-    cursor: not-allowed !important;
-}
-
-
-
-label{
-    transition: all 0.35s ease;
-    color: #fff;
-}
-label.hover{
-    cursor: pointer;
-    color: cyan;
+    color: darkcyan;
 }

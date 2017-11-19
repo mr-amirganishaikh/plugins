@@ -177,3 +177,7 @@ mark {
     padding: 5px 0;
     border-bottom: 1px solid #cecccc;
 }
+
+.list-unstyled li:last-child{
+    border: none;
+}
