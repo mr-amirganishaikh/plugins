@@ -54,6 +54,10 @@
     <script>
         $(document).ready(function() {
             $(".customCheckInput").customCheck();
+            
+            $("#testCheckbox").on("change",function(evt){
+                console.log(evt);
+            });
         });
 
     </script>

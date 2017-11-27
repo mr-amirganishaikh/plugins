@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Equal Height Plugin Demo</title>
+    <link href="../common-files/common.css" type="text/css" rel="stylesheet" />
+    <style>
+        body{
+            overflow-x: hidden;
+            margin: 0;
+        }
+        
+        .test {
+            height: 25vh;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        #second, #fourth{
+            transform: translateX(-50%);
+            opacity: 0;
+            background-color: yellowgreen;
+            transition:  all 1s linear;
+        }
+        #fourth{
+            background-color: firebrick;
+        }
+        
+        #third, #fifth{
+            transform: translateX(50%);
+            opacity: 0;
+            background-color: slateblue;
+            transition:  all 1s linear;
+        }
+        #fifth{
+            background-color: dimgray;
+        }
+        
+        #second.active, #third.active, #fourth.active, #fifth.active{
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="second" class="container test">
+        <h2>Translate From Left</h2>
+        <hr/>
+    </div>
+    
+    <div id="third" class="container test">
+        <h2>Translate from Right</h2>
+        <hr/>
+    </div>
+    
+    <div id="fourth" class="container test">
+        <h2>Translate From Left</h2>
+        <hr/>
+    </div>
+    
+    <div id="fifth" class="container test">
+        <h2>Translate from Right</h2>
+        <hr/>
+    </div>
+    <div id="second" class="container test">
+        <h2>Translate From Left</h2>
+        <hr/>
+    </div>
+    
+    <div id="third" class="container test">
+        <h2>Translate from Right</h2>
+        <hr/>
+    </div>
+    
+    <div id="fourth" class="container test">
+        <h2>Translate From Left</h2>
+        <hr/>
+    </div>
+    
+    <div id="fifth" class="container test">
+        <h2>Translate from Right</h2>
+        <hr/>
+    </div>
+    
+    <div id="second" class="container test">
+        <h2>Translate From Left</h2>
+        <hr/>
+    </div>
+    
+    <div id="third" class="container test">
+        <h2>Translate from Right</h2>
+        <hr/>
+    </div>
+    
+    <div id="fourth" class="container test">
+        <h2>Translate From Left</h2>
+        <hr/>
+    </div>
+    
+    <div id="fifth" class="container test">
+        <h2>Translate from Right</h2>
+        <hr/>
+    </div>
+    <div id="second" class="container test">
+        <h2>Translate From Left</h2>
+        <hr/>
+    </div>
+    
+    <div id="third" class="container test">
+        <h2>Translate from Right</h2>
+        <hr/>
+    </div>
+    
+    <div id="fourth" class="container test">
+        <h2>Translate From Left</h2>
+        <hr/>
+    </div>
+    
+    <div id="fifth" class="container test">
+        <h2>Translate from Right</h2>
+        <hr/>
+    </div>
+
+    <script src="../common-files/jquery.min.js"></script>
+    <script src="inView.min.js" type="text/javascript"></script>
+    <script>
+        
+        $(".test").inView({
+            inViewClass: 'active'
+        });
+
+    </script>
+</body>
+
+</html>
