@@ -7,10 +7,11 @@
             parent: window,
             inViewClass: 'inToView',
             outViewClass: 'outFromView',
+            effect: false,
+            effectType: 'inView_fade',
             onLoad: true,
             onLoadView: function () {},
-            whenInView: function () {},
-            whenOutView: function () {}
+            isInView: function () {}
         };
 
         // merge default and user options keep defaults unchanged
@@ -20,12 +21,12 @@
         var windowH = $(window).height(),
             windowTop = $(window).scrollTop(),
             windowBottom = windowH + windowTop;
-
+        
         // traverse all nodes
         this.each(function () {
             // express a single node as a jQuery object
             var $this = $(this);
-
+            
             // individual variables
             var thisH = $this.outerHeight(),
                 thisTop = $this.offset().top,
@@ -33,11 +34,12 @@
 
             // execute core function on load
             if (settings.onLoad === true) {
-                if (thisTop <= windowBottom && thisBottom >= windowTop) {
-                    $this.addClass(settings.inViewClass).attr("data-inView", "inView");
-                } else {
-                    $this.addClass(settings.outViewClass).attr("data-inView", "outView");
-                }
+                setView(thisTop, thisBottom, windowTop, windowBottom);
+            }
+            
+            // add effects if it is set to true
+            if(settings.effect === true){
+                setEffect(settings.effectType);
             }
             
             // returns inView or outView onLoad
@@ -48,23 +50,36 @@
                 windowTop = $(window).scrollTop();
                 windowBottom = windowH + windowTop;
 
+                setView(thisTop, thisBottom, windowTop, windowBottom);
+            });                     
+            
+            // set effects based on its type
+            function setEffect(effectType){
+                $this.addClass(effectType);
+            }
+            
+            // condition to set view
+            function setView(thisTop, thisBottom, windowTop, windowBottom){                
                 if (thisTop <= windowBottom && thisBottom >= windowTop) {
-                    $this.addClass(settings.inViewClass).removeClass(settings.outViewClass).attr("data-inView", "inView");
-                    settings.whenInView($this, true);
+                    // do the changes for in view
+                    $this.addClass(settings.inViewClass).removeClass(settings.outViewClass).attr("data-inView", true);
+                    
+                    // callback to return in view true
+                    settings.isInView($this, true);
                 } else {
-                    $this.addClass(settings.outViewClass).removeClass(settings.inViewClass).attr("data-inView", "outView");
-                    settings.whenOutView($this, false);
+                    // do the changes for out view
+                    $this.addClass(settings.outViewClass).removeClass(settings.inViewClass).attr("data-inView", false);
+                    
+                    // callback to return in view false
+                    settings.isInView($this, false);
                 }
-            });                       
+            }
             
             // check if it is in view or out of view
             function checkView(data) {
-                if (data.attr("data-inView") == "inView") {
-                    return true;
-                } else if (data.attr("data-inView") == "outView") {
-                    return false;
-                }
-            };
+                return data.attr("data-inView");
+            }
+            
             // to keep chaining
             return this;
         });

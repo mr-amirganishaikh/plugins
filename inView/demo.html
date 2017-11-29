@@ -4,131 +4,125 @@
 <head>
     <title>Equal Height Plugin Demo</title>
     <link href="../common-files/common.css" type="text/css" rel="stylesheet" />
+    <link href="inView.css" type="text/css" rel="stylesheet" />
     <style>
         body{
             overflow-x: hidden;
             margin: 0;
         }
         
-        .test {
+        .container {
             height: 25vh;
             color: #fff;
             margin-bottom: 5px;
         }
         
-        #second, #fourth{
-            transform: translateX(-50%);
+        .first{
             opacity: 0;
+            transition:  all 1s linear;
             background-color: yellowgreen;
-            transition:  all 1s linear;
         }
-        #fourth{
-            background-color: firebrick;
-        }
-        
-        #third, #fifth{
-            transform: translateX(50%);
-            opacity: 0;
-            background-color: slateblue;
-            transition:  all 1s linear;
-        }
-        #fifth{
-            background-color: dimgray;
-        }
-        
-        #second.active, #third.active, #fourth.active, #fifth.active{
+        .first.active{
             opacity: 1;
-            transform: translateX(0);
+        }
+        
+        .second{
+            background-color: slategray;
         }
 
     </style>
 </head>
 
 <body>
-    <div id="second" class="container test">
-        <h2>Translate From Left</h2>
+    <div class="container first">
+        <h2>Fade In using class</h2>
         <hr/>
     </div>
     
-    <div id="third" class="container test">
-        <h2>Translate from Right</h2>
+    <div class="container second">
+        <h2>Fade In using plugin effect</h2>
         <hr/>
     </div>
     
-    <div id="fourth" class="container test">
-        <h2>Translate From Left</h2>
+    <div class="container first">
+        <h2>Fade In using class</h2>
         <hr/>
     </div>
     
-    <div id="fifth" class="container test">
-        <h2>Translate from Right</h2>
+    <div class="container second">
+        <h2>Fade In using plugin effect</h2>
         <hr/>
     </div>
-    <div id="second" class="container test">
-        <h2>Translate From Left</h2>
-        <hr/>
-    </div>
-    
-    <div id="third" class="container test">
-        <h2>Translate from Right</h2>
+    <div class="container first">
+        <h2>Fade In using class</h2>
         <hr/>
     </div>
     
-    <div id="fourth" class="container test">
-        <h2>Translate From Left</h2>
+    <div class="container second">
+        <h2>Fade In using plugin effect</h2>
         <hr/>
     </div>
     
-    <div id="fifth" class="container test">
-        <h2>Translate from Right</h2>
+    <div class="container first">
+        <h2>Fade In using class</h2>
         <hr/>
     </div>
     
-    <div id="second" class="container test">
-        <h2>Translate From Left</h2>
+    <div class="container second">
+        <h2>Fade In using plugin effect</h2>
         <hr/>
     </div>
     
-    <div id="third" class="container test">
-        <h2>Translate from Right</h2>
+    <div class="container first">
+        <h2>Fade In using class</h2>
         <hr/>
     </div>
     
-    <div id="fourth" class="container test">
-        <h2>Translate From Left</h2>
+    <div class="container second">
+        <h2>Fade In using plugin effect</h2>
         <hr/>
     </div>
     
-    <div id="fifth" class="container test">
-        <h2>Translate from Right</h2>
-        <hr/>
-    </div>
-    <div id="second" class="container test">
-        <h2>Translate From Left</h2>
+    <div class="container first">
+        <h2>Fade In using class</h2>
         <hr/>
     </div>
     
-    <div id="third" class="container test">
-        <h2>Translate from Right</h2>
+    <div class="container second">
+        <h2>Fade In using plugin effect</h2>
+        <hr/>
+    </div>
+    <div class="container first">
+        <h2>Fade In using class</h2>
         <hr/>
     </div>
     
-    <div id="fourth" class="container test">
-        <h2>Translate From Left</h2>
+    <div class="container second">
+        <h2>Fade In using plugin effect</h2>
         <hr/>
     </div>
     
-    <div id="fifth" class="container test">
-        <h2>Translate from Right</h2>
+    <div class="container first">
+        <h2>Fade In using class</h2>
+        <hr/>
+    </div>
+    
+    <div class="container second">
+        <h2>Fade In using plugin effect</h2>
         <hr/>
     </div>
 
     <script src="../common-files/jquery.min.js"></script>
-    <script src="inView.min.js" type="text/javascript"></script>
+    <script src="inView.js" type="text/javascript"></script>
     <script>
-        
-        $(".test").inView({
+        // effect using class
+        $(".first").inView({
             inViewClass: 'active'
+        });
+        
+        // effect using plugin effect
+        $(".second").inView({
+            effect: true
         });
 
     </script>
