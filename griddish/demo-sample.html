@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Griddish Plugin</title>
+    <link href="../common-files/common.css" type="text/css" rel="stylesheet" />
+    <style>
+        .griddishRowTemplate{display: none;}
+    </style>
+</head>
+
+<body>
+    <div id="finTranGriddish" class="spv-grid-panel griddish col-xs-12">
+        <table id="finTranDatatable" class="table table-striped display overflow-hidden-fixed nowrap" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Transaction ID</th>
+                    <th>Transaction Date</th>
+                    <th>Entity Name</th>
+                    <th>A/L Name</th>
+                    <th>Increase/Decrease</th>
+                    <th>Value</th>
+                    <th>Currency</th>
+                    <th class="no-sort descCol">Description</th>
+                    <th>Created By</th>
+                    <th class="no-sort actionCol">Action</th>
+                </tr>
+            </thead>
+            <tbody class="tableBody griddishRows">
+            </tbody>
+        </table>
+        <table class="griddishRowTemplate">
+            <tbody>
+                <tr class="griddishRow">
+                    <td>
+                        <font class="typeD">Asset</font>
+                    </td>
+                    <td>
+                        <font class="tranIdD">3211</font>
+                    </td>
+                    <td>
+                        <font class="tranDateD">02-Oct-2017</font>
+                    </td>
+                    <td>
+                        <font class="entNameD">Name 1</font>
+                    </td>
+                    <td>
+                        <font class="aLNameD">Name 1</font>
+                    </td>
+                    <td>
+                        <font class="incrDecrD tableIncrDecr">-</font>
+                    </td>
+                    <td>
+                        <font class="valueD">43049.0</font>
+                    </td>
+                    <td>
+                        <font class="currencyD">GBP</font>
+                    </td>
+                    <td>
+                        <div class="tableAction descrD">
+                            <span class="descrBtn fa fa-commenting-o" title="Description" data-tooltip="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."></span>
+                        </div>
+                    </td>
+                    <td>
+                        <font class="createdByD">Name 1</font>
+                    </td>
+                    <td>
+                        <div class="tableAction">
+                            <a class="editBtn fa fa-edit" title="Edit"></a>
+                            <a class="deleteBtn fa fa-trash" title="Delete"></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../common-files/jquery.min.js"></script>
+    <script src="griddish-sample.js" type="text/javascript"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var fillResultsGrid = function(grid) {
+            for (var i = 1; i <= 5; i++) {
+                var newRow = grid.newRow();
+                grid.addRow(newRow);
+                var rowID = i + 1;
+                newRow.griddishText("typeD", "Asset");
+                newRow.griddishText("tranIdD", "321" + i);
+                newRow.griddishText("tranDateD", "02-Oct-2017");
+                newRow.griddishText("entNameD", "Name " + i);
+                newRow.griddishText("aLNameD", "Name " + i);
+                newRow.griddishText("incrDecrD", "-");
+                newRow.griddishText("valueD", "" + (23432 * i) + ".00");
+                newRow.griddishText("createdByD", "Name " + i);
+                grid.setRowId(newRow, i);
+            }
+        }
+        /*]]>*/
+
+    </script>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        
+        var finTranGridSettings = {
+            "onInit": function(grid) {
+                fillResultsGrid(grid);
+                console.log(grid);
+            }
+        };
+
+        $("#finTranGriddish").griddish(finTranGridSettings);
+        
+        /*]]>*/
+
+    </script>
+</body>
+
+</html>
