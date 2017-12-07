@@ -1,4 +1,4 @@
-/* Griddish Library */
+/*Griddish Library */
 $.prototype.griddish = function (customs) {
     var defaults = {
         gridDiv: ".griddish_div",
@@ -11,11 +11,14 @@ $.prototype.griddish = function (customs) {
         deleteBtn: ".deleteBtn",
         saveBtn: ".saveBtn",
         cancelEditBtn: ".cancelEditBtn",
+        addNewBtn: undefined,
 
         editable: true,
         resettable: true,
         deletable: true,
-        confirmBeforeDelete: true,
+        undeletable: true,
+        confirmBeforeDelet: true,
+        removeRowOnDelete: true,
 
         showOnEdit: ".onEdit",
         showOnView: ".onView",
@@ -27,6 +30,7 @@ $.prototype.griddish = function (customs) {
         onInit: function () {},
         onEdit: function () {},
         onReset: function () {},
+        onDelete: function (row) {},
         beforeSave: function (row) {
             return true;
         },
@@ -37,41 +41,63 @@ $.prototype.griddish = function (customs) {
 
     this.options = $.extend({}, true, defaults, customs);
 
+    /****** Some Basic functions used to create a row ******/
+    /* Create a new row Function */
     this.newRow = function () {
         var tempContainer = $(this.options.gridTemplate, this);
         var newRow = $(this.options.gridDiv, tempContainer).clone();
         return newRow;
     }
 
+    /* Set Row ID */
     this.setRowId = function (row, id) {
         if (id == undefined || id == null || id == 'null' || id == "")
             return false;
         row.attr("id", this.prepareId(id));
-    }
+    }    
 
+    /* Create a format for Id */
+    this.prepareId = function (id) {
+        return this.options.rowIdPrefix + id;
+    }
+    
+    /* Get Row ID */
     this.getRowId = function (row) {
         return $(row).attr("id");
     }
 
-    this.prepareId = function (id) {
-        return this.options.rowIdPrefix + id;
-    }
-
-    this.getRow = function (id) {
-        return $(this.options.gridDiv + this.prepareId(id) + ':first', $(this.options.gridBody));
-    }
-
+    /* Main function to add a row */
     this.addRow = function (row) {
         $(this.options.gridBody).append(row);
         if (this.options.editable) {
             this.makeEditable(row);
         }
+        if (this.options.deletable) {
+            this.makeDeletable(row);
+        }
+        if (this.options.undeletable) {
+            this.makeUndeletable(row);
+        }
+
+        this.options.onAdd(row);
+        this.options.onChange(this);
     }
 
+    /* Create an empty row */
     this.addEmptyRow = function () {
         var newRow = this.newRow();
+        newRow.addClass(this.options.onEmptyClass);
         this.addRow(newRow);
+
+        if (this.options.editable) {
+            this.makeEditable(row);
+        }
     }
+    
+    /* Get row */
+	this.getRow	= function(id){		
+		return $(this.options.griddishRow+this.prepareId(id)+':first',$(this.options.griddishRows,this));
+	}
 
 
     this.editRow = function (row) {
@@ -119,6 +145,54 @@ $.prototype.griddish = function (customs) {
 
     }
 
+    this.deleteRow = function (row) {
+        var instance = this;
+        row.removeClass(this.options.onUndeleteClass);
+        row.addClass(this.options.onDeleteClass);
+
+        $(this.options.showOnUnDelete, row).hide();
+        $(this.options.showOnEdit, row).hide();
+
+        $(this.options.showOnView, row).fadeIn();
+        $(this.options.showOnDelete, row).fadeIn();
+
+        if (this.options.removeRowOnDelete) {
+            row.fadeOut(function () {
+                this.remove();
+                instance.options.onDelete(row);
+                instance.options.onChange(instance);
+            });
+        } else {
+            this.options.onDelete(row);
+            this.options.onChange(this);
+        }
+
+
+    }
+
+    this.deleteParentRow = function (elem) {
+        this.deleteRow($(elem).closest(this.options.griddishRow));
+    }
+
+    this.isDeleted = function (row) {
+        if (row.hasClass(this.options.onDeleteClass)) {
+            return true;
+        } else {
+            return false
+        }
+    }
+
+    this.undeleteRow = function (row) {
+
+        row.removeClass(this.options.onDeleteClass);
+        row.addClass(this.options.onUndeleteClass);
+        $(this.options.showOnDelete, row).hide();
+        $(this.options.showOnUnDelete, row).fadeIn();
+
+        this.options.onUnDelete(row);
+        this.options.onChange(this);
+    }
+
     this.makeEditable = function (row) {
         var instance = this;
         $(this.options.editBtn, row).click(function (elem) {
@@ -150,6 +224,41 @@ $.prototype.griddish = function (customs) {
         }
     }
 
+    this.makeDeletable = function (row) {
+        var instance = this;
+        $(this.options.deleteBtn, row).click(function (e) {
+            if (instance.options.confirmBeforeDelete) {
+                if (instance.options.beforeDelete(row, this) == true) {
+                    instance.deleteRow(row);
+                }
+            } else {
+                instance.deleteRow(row);
+            }
+
+        }).show();
+
+
+    }
+
+    this.makeUndeletable = function (row) {
+        var instance = this;
+        $(this.options.undeleteBtn, row).click(function (elem) {
+            instance.undeleteRow(row);
+        });
+        if (this.isDeleted(row)) {
+            $(this.options.undeleteBtn, row).show();
+        } else {
+            $(this.options.undeleteBtn, row).hide();
+        }
+    }
+
+    // Event to be triggered on AddNew Btn
+    var instance = this;
+    if (this.options.addNewBtn != undefined) {
+        $(this.options.addNewBtn, instance).click(function () {
+            instance.addEmptyRow();
+        })
+    }
 
     // init function
     this.options.onInit(this);

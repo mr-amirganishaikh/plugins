@@ -4,7 +4,7 @@
 <head>
     <title>Griddish Plugin</title>
     <link href="../common-files/common.css" type="text/css" rel="stylesheet" />
-    <link href="helper.css" type="text/css" rel="stylesheet" />
+    <link href="../griddish/helper.css" type="text/css" rel="stylesheet" />
     <style>
         .griddish_template {
             display: none;
@@ -89,7 +89,7 @@
         </div>
     </div>
     <script src="../common-files/jquery.min.js"></script>
-    <script src="griddish.js" type="text/javascript"></script>
+    <script src="../griddish/griddish.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
             var testData = [{
